@@ -25,13 +25,21 @@ app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
 
-
+// Home page
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurant => res.render('index', { restaurant }))
     .catch(error => console.log(error))
+})
 
+// Detail page
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('detail', { restaurant }))
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {
