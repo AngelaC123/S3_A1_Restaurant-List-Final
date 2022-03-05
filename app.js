@@ -9,7 +9,7 @@ const restaurant = require('./models/restaurant')
 
 const port = 3000
 
-mongoose.connect('mongodb://localhost/restaurant-list-crud')
+mongoose.connect('mongodb://localhost/restaurant-list-crud', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
@@ -18,7 +18,7 @@ db.on('error', () => {
 })
 
 db.once('open', () => {
-  console.log('mongdodb connected!')
+  console.log('mongodb connected!')
 })
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
@@ -56,6 +56,36 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+
+// Edit restaurant page
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const restaurantEdited = req.body
+  return Restaurant.findById(id)
+
+    .then(restaurant => {
+      restaurant.name = restaurantEdited.name
+      restaurant.category = restaurantEdited.category
+      restaurant.image = restaurantEdited.image
+      restaurant.location = restaurantEdited.location
+      restaurant.phone = restaurantEdited.phone
+      restaurant.google_map = restaurantEdited.google_map
+      restaurant.description = restaurantEdited.description
+      restaurant.rating = restaurantEdited.rating
+      return restaurant.save()
+      restaurant.category = restaurantEdited.category
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+
+})
 
 
 app.listen(port, () => {
