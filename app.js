@@ -41,6 +41,7 @@ app.get('/search', (req, res) => {
   if (!req.query.keywords) {
     res.redirect('/')
   } else {
+    const keywords = req.query.keywords
     const keyword = req.query.keywords.trim().toLowerCase()
     let restaurantSearchResults = []
     Restaurant.find() // current restaurant list
@@ -48,7 +49,7 @@ app.get('/search', (req, res) => {
       .then(restaurant => {
         restaurantSearchResults = restaurant.filter((data) => { return data.name.toLowerCase().includes(keyword) || data.category.toLowerCase().includes(keyword) })
       })
-      .then(() => res.render('index', { restaurant: restaurantSearchResults, keyword: keyword }))
+      .then(() => res.render('index', { restaurant: restaurantSearchResults, keyword: keywords }))
       .catch(error => console.log('error'))
   }
 })
