@@ -55,8 +55,11 @@ header {
 }
 
 .card img{
+  display:block;
   height: 180px;
+  background-color: #efefef;
 }
+
 
 .card-title{
   overflow:hidden;
@@ -76,6 +79,15 @@ header {
   text-align: center;
   font-size: 3rem;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#delete-btn:hover{
+  color:#494f54 !important;
+  text-decoration: underline;
+}
+
+#delete-btn:hover:focus{
+  outline:none;
 }
 
 @media screen and (max-width: 992px) {

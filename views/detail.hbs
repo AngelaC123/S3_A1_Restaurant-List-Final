@@ -11,8 +11,16 @@
               <a href=" ./{{restaurant._id}}/edit" class="text-secondary mx-3"
                 style=" font-size: 18px;text-decoration:underline;">Edit
               </a>
-              <a href="./{{restaurant._id}}/edit" class="text-secondary"
-                style="font-size: 18px;text-decoration:underline;">Delete</a>
+
+              <form action="/restaurants/{{restaurant._id}}/delete" method="post" style="display: inline; "
+                class="mx-0">
+                <button type="submit" class="text-secondary"
+                  style=" border:none; background-color:transparent; font-size: 18px;text-decoration:underline;"
+                  id="delete-btn">Delete</button>
+              </form>
+
+              {{!-- <a href="./{{restaurant._id}}/edit" class="text-secondary"
+                style="font-size: 18px;text-decoration:underline;">Delete</a> --}}
             </div>
       </div>
 
