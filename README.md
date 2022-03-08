@@ -1,4 +1,5 @@
 # 我的餐廳清單
+![image](https://github.com/AngelaC123/A7_Restaurant-List-CRUD/blob/main/public/%E6%88%AA%E5%9C%96%202022-03-08%2011.51.00.png)
 
 ## 簡介
 屬於自己的餐廳清單網頁。可以瀏覽所有清單上的餐廳，紀錄餐廳各類資訊、修改及刪除，也可以輸入關鍵字搜尋資料。
