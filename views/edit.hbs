@@ -9,7 +9,8 @@
         <a class="text-danger font-weight-normal" style="font-size: 19px;" href="/">
           < 回到餐廳列表</a>
 
-            <form action="/restaurants/{{restaurant._id}}/delete" method="post" style="display: inline; " class="mx-0">
+            <form action="/restaurants/{{restaurant._id}}?_method=delete" method="post" style="display: inline; "
+              class="mx-0">
               <button type="submit" class="text-secondary"
                 style=" border:none; background-color:transparent; font-size: 18px;text-decoration:underline;"
                 id="delete-btn">Delete</button>
@@ -20,7 +21,7 @@
 
 
 
-      <form action="/restaurants/{{restaurant._id}}/edit" method="post">
+      <form action="/restaurants/{{restaurant._id}}/?_method=put" method="post">
 
         <div class="form-group row mt-3">
           <label for="restaurant-name" class="col-sm-3 col-form-label text-secondary text-right">

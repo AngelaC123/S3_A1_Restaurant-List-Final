@@ -3,9 +3,10 @@ const app = express()
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverRide = require('method-override')
 
 const Restaurant = require('./models/restaurant')
-const restaurant = require('./models/restaurant')
+
 
 const port = 3000
 
@@ -26,6 +27,7 @@ app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverRide('_method'))
 
 // Home page
 app.get('/', (req, res) => {
@@ -84,22 +86,23 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
-app.post('/restaurants/:id/edit', (req, res) => {
+
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  const restaurantEdited = req.body
+  const { name, category, image, location, phone, google_map, description, rating } = req.body
   return Restaurant.findById(id)
 
     .then(restaurant => {
-      restaurant.name = restaurantEdited.name
-      restaurant.category = restaurantEdited.category
-      restaurant.image = restaurantEdited.image
-      restaurant.location = restaurantEdited.location
-      restaurant.phone = restaurantEdited.phone
-      restaurant.google_map = restaurantEdited.google_map
-      restaurant.description = restaurantEdited.description
-      restaurant.rating = restaurantEdited.rating
+      restaurant.name = name
+      restaurant.category = category
+      restaurant.image = image
+      restaurant.location = location
+      restaurant.phone = phone
+      restaurant.google_map = google_map
+      restaurant.description = description
+      restaurant.rating = rating
       return restaurant.save()
-      restaurant.category = restaurantEdited.category
+
     })
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
@@ -107,7 +110,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // Delete restaurant function
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())

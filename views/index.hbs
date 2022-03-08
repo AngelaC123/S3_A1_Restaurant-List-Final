@@ -54,7 +54,8 @@
               <div class="container mt-2 p-0 ml-0" style="">
                 <a class="text-secondary" href="/restaurants/{{this._id}}/edit">Edit</a>
 
-                <form action="/restaurants/{{this._id}}/delete" method="post" style="display: inline; " class="mx-1">
+                <form action="/restaurants/{{this._id}}?_method=delete" method="post" style="display: inline; "
+                  class="mx-1">
                   <button type="submit" class="text-secondary"
                     style=" border:none; background-color:transparent; :focus:border: none;"
                     id="delete-btn">Delete</button>
