@@ -22,7 +22,7 @@
           <div class="col-sm-9">
             <input type="text" class="form-control" id="restaurant-name" name="name" placeholder="請輸入餐廳名稱" required>
             <div class="valid-feedback"></div>
-            <div class="invalid-feedback">請輸入餐聽名稱！</div>
+            <div class="invalid-feedback">請輸入餐聽名稱：</div>
           </div>
         </div>
 
@@ -30,7 +30,18 @@
         <div class="form-group row mt-3">
           <label for="restaurant-category" class="col-sm-3 col-form-label text-secondary text-right ">類型：</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="restaurant-category" name="category" placeholder="請輸入餐廳類型">
+            {{!-- <input type="text" class="form-control" id="restaurant-category" name="category"
+              placeholder="請輸入餐廳類型"> --}}
+            <input list="category-options" class="form-control" name="category" id="restaurant-category"
+              value="{{restaurant.category}}">
+            <datalist id="category-options">
+              <option value="美式料理">美式料理
+              <option value="日本料理">日本料理
+              <option value="義式料理">義式料理
+              <option value="酒吧">酒吧
+              <option value="中東料理">中東料理
+              <option value="咖啡廳">咖啡廳
+            </datalist>
           </div>
         </div>
 
