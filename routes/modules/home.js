@@ -42,6 +42,7 @@ router.get('/search', (req, res) => {
         const restaurantSearchResults = restaurant.filter((data) => { return data.name.toLowerCase().includes(keyword) || data.category.toLowerCase().includes(keyword) })
         return restaurantSearchResults
       })
+      //將restaurantSearchResults做資料處理...這裡不會寫...
       .then((restaurantSearchResults) => res.render('index', { restaurant: restaurantSearchResults, keyword: keywords }))
       .catch(error => console.log('error'))
   }
