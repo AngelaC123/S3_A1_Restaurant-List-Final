@@ -14,19 +14,35 @@ router.get('/', (req, res) => {
 // Search bar
 router.get('/search', (req, res) => {
 
+  let sort = req.query.sort
+  let currentMode = ''
+  switch (sort) {
+    case "A > Z":
+      currentMode = 'asc'
+      break;
+    case "Z > A":
+      currentMode = 'desc'
+      break;
+  }
+
+
   if (!req.query.keywords) {
-    res.redirect('/')
+    Restaurant.find()
+      .lean()
+      .sort({ name: currentMode })
+      .then(restaurant => res.render('index', { restaurant }))
+
   } else {
+
     const keywords = req.query.keywords
     const keyword = req.query.keywords.trim().toLowerCase()
-    let restaurantSearchResults = []
     Restaurant.find() // current restaurant list
       .lean()
       .then(restaurant => {
-        restaurantSearchResults = restaurant.filter((data) => { return data.name.toLowerCase().includes(keyword) || data.category.toLowerCase().includes(keyword) })
+        const restaurantSearchResults = restaurant.filter((data) => { return data.name.toLowerCase().includes(keyword) || data.category.toLowerCase().includes(keyword) })
         return restaurantSearchResults
       })
-      .then(() => res.render('index', { restaurant: restaurantSearchResults, keyword: keywords }))
+      .then((restaurantSearchResults) => res.render('index', { restaurant: restaurantSearchResults, keyword: keywords }))
       .catch(error => console.log('error'))
   }
 })

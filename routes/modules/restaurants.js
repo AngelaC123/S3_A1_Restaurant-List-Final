@@ -37,7 +37,7 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const { name, category, image, location, phone, google_map, description, rating } = req.body
+
   return Restaurant.findById(id)
 
     .then(restaurant => {
