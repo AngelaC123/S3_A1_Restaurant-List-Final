@@ -8,7 +8,10 @@ router.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurant => res.render('index', { restaurant }))
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log('error')
+      res.render('errorPage', { status: 500, error: error.message })
+    })
 })
 
 // Search bar
@@ -44,7 +47,10 @@ router.get('/search', (req, res) => {
       })
       //將restaurantSearchResults做資料處理...這裡不會寫...
       .then((restaurantSearchResults) => res.render('index', { restaurant: restaurantSearchResults, keyword: keywords }))
-      .catch(error => console.log('error'))
+      .catch(error => {
+        console.log('error')
+        res.render('errorPage', { status: 500, error: error.message })
+      })
   }
 })
 

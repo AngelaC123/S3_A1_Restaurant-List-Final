@@ -13,7 +13,10 @@ router.post('/', (req, res) => {
   const data = req.body
   return Restaurant.create(data)
     .then(res.redirect('/'))
-    .catch(error => console.log('error'))
+    .catch(error => {
+      console.log('error')
+      res.render('errorPage', { status: 500, error: error.message })
+    })
 })
 
 // Detail page
@@ -22,7 +25,10 @@ router.get('/:id', (req, res) => {
   Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('detail', { restaurant }))
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log('error')
+      res.render('errorPage', { status: 500, error: error.message })
+    })
 })
 
 
@@ -32,7 +38,10 @@ router.get('/:id/edit', (req, res) => {
   return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log('error')
+      res.render('errorPage', { status: 500, error: error.message })
+    })
 })
 
 router.put('/:id', (req, res) => {
@@ -45,7 +54,10 @@ router.put('/:id', (req, res) => {
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log('error')
+      res.render('errorPage', { status: 500, error: error.message })
+    })
 })
 
 // Delete restaurant function
@@ -54,7 +66,10 @@ router.delete('/:id', (req, res) => {
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log('error')
+      res.render('errorPage', { status: 500, error: error.message })
+    })
 
 })
 
