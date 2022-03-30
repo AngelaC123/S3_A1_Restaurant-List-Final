@@ -8,22 +8,23 @@
           <form action="/users/register" method="post">
             <div class=" mb-3">
               <label for="name" class="form-label">Name</label>
-              <input type="text" id="name" name="name" class="form-control" placeholder="Please enter your name...">
+              <input type="text" id="name" name="name" class="form-control" placeholder="Please enter your name..."
+                value="{{name}}">
             </div>
             <div class=" mb-3">
               <label for="email" class="form-label">Email</label>
               <input type="email" id="email" name="email" class="form-control" placeholder="Please enter your email..."
-                required>
+                value="{{email}}" required>
             </div>
             <div class=" mb-3">
               <label for="password" class="form-label">Password</label>
               <input type="password" id="password" name="password" class="form-control"
-                placeholder="Please enter your password..." required>
+                placeholder="Please enter your password..." value="{{password}}" required>
             </div>
             <div class=" mb-3">
               <label for="confirmPassword" class="form-label">Confirm Password</label>
               <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
-                placeholder="Please confirm your password..." required>
+                placeholder="Please confirm your password..." value="{{confirmPassword}}" required>
             </div>
             {{!-- <div class="d-grid mx-auto"> --}}
               <button class="btn mt-4 btn-block mx-auto" style="background-color:#4c9cb9; color:white; "
