@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="/stylesheets/index_style.css">
 
 
-
 </head>
 
 
@@ -27,11 +26,14 @@
         <a class="navbar-brand" href="/">
           <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
             width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+          {{#if isAuthenticated}}{{user.name}}'s餐廳清單
+          {{else}}
           我的餐廳清單
+          {{/if}}
         </a>
 
         <a class="btn btn-light mr-3 " style="background-color:#4c9cb9; color:white; width:120px; border-radius: 6px;"
-          href="/restaurants/new">新增餐廳</a>
+          href="/users/logout">Logout</a>
       </div>
 
     </nav>

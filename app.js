@@ -1,5 +1,4 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverRide = require('method-override')
@@ -27,6 +26,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverRide('_method'))
 
 usePassport(app)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 app.use(routes)
 
 app.listen(port, () => {
