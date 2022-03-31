@@ -8,9 +8,6 @@ const restaurantSchema = new Schema({
   category: {
     type: String,
   },
-  image: {
-    type: String,
-  },
   location: {
     type: String,
   },
@@ -25,7 +22,18 @@ const restaurantSchema = new Schema({
   },
   description: {
     type: String,
+  },
+  img: {
+    type: String,
+  },
+
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
   }
+
 })
 
 module.exports = mongoose.model('Restaurant', restaurantSchema)

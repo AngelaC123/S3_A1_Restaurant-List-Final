@@ -1,7 +1,8 @@
 const express = require('express')
+const restaurant = require('../../models/restaurant')
 const router = express.Router()
 
-const Restaurant = require('../../models/restaurant.js')
+const Restaurant = require('../../models/restaurant')
 
 
 
@@ -11,65 +12,78 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const data = req.body
-  return Restaurant.create(data)
-    .then(res.redirect('/'))
+  const userId = req.user._id
+  const { name, category, img, location, phone, google_map, rating, description } = req.body
+  console.log(name, category, img, location, phone, google_map, rating, description)
+  return Restaurant.create(
+    { userId, name, category, img, location, phone, google_map, rating, description }
+  )
+    .then((restaurant) => {
+      return restaurant
+    })
+    .then(() => res.redirect('/'))
     .catch(error => {
-      console.log('error')
-      res.render('errorPage', { status: 500, error: error.message })
+      console.log(error)
+      // res.render('errorPage', { status: 500, error: error.message })
     })
 })
 
 // Detail page
 router.get('/:id', (req, res) => {
   const id = req.params.id
-  Restaurant.findById(id)
+  const userId = req.user._id
+  return Restaurant.findOne({ _id: id, userId })
     .lean()
-    .then(restaurant => res.render('detail', { restaurant }))
+    .then((restaurant) => res.render('detail', { restaurant }))
     .catch(error => {
-      console.log('error')
-      res.render('errorPage', { status: 500, error: error.message })
+      console.log(error)
+      // res.render('errorPage', { status: 500, error: error.message })
     })
 })
-
 
 // Edit restaurant page
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findOne({ _id, userId })
     .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
+    .then((restaurant) => res.render('edit', { restaurant }))
     .catch(error => {
-      console.log('error')
-      res.render('errorPage', { status: 500, error: error.message })
+      console.log(error)
+      // res.render('errorPage', { status: 500, error: error.message })
     })
 })
 
+
+
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
 
-  return Restaurant.findById(id)
-
-    .then(restaurant => {
-      restaurant = Object.assign(restaurant, req.body)
+  return Restaurant.findOne({ _id, userId })
+    .then((restaurant) => {
+      let data = req.body
+      data.userId = userId
+      restaurant = Object.assign(restaurant, data)
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${id}`))
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(error => {
-      console.log('error')
-      res.render('errorPage', { status: 500, error: error.message })
+      console.log(error)
+      // res.render('errorPage', { status: 500, error: error.message })
     })
 })
 
 // Delete restaurant function
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findById({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => {
-      console.log('error')
-      res.render('errorPage', { status: 500, error: error.message })
+      console.log(error)
+      // res.render('errorPage', { status: 500, error: error.message })
     })
 
 })

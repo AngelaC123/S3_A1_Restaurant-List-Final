@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 header {
   overflow: hidden;
 }
@@ -20,15 +23,29 @@ header {
   filter: blur(3px);
 }
 
-.search-bar .search-bar-outer {
+.search-bar {
   margin: 0 auto;
-  max-width: 680px;
+  /* display: flex;
+  justify-content: center;
+  align-items: flex-end; */
+}
+.search-bar .search-bar-outer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 0 auto;
+  flex-basis: 80%;
+  max-width: 760px;
   background-color: #fce2cf;
   border-radius: 8px;
   padding: 20px 30px;
   border: 0;
   margin-top: -60px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar-inner{
+  flex-basis: 70%;
 }
 
 .search-bar .search-bar-inner h4 {
@@ -48,6 +65,15 @@ header {
 .form-control:focus {
   box-shadow: none;
   border-color: #ced4da;
+
+}
+
+.btn-add-new-restaurant{
+  height: 40px;
+  text-align: center;
+  border-radius: 6px;
+  margin-left: 20px;
+  width:130px;
 }
 
 .card {

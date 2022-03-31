@@ -2,36 +2,34 @@ const express = require('express')
 const router = express.Router()
 
 const Restaurant = require('../../models/restaurant.js')
-const CurrentMode = require('../../public/javascripts/currentMode.js')
+const CurrentMode = require('../../currentMode.js')
 
-// home page - all restaurants list
+
 router.get('/', (req, res) => {
-
-
+  const userId = req.user._id
   let sort = req.query.sort
 
-
   if (!req.query.keywords) {
-    Restaurant.find()
+    Restaurant.find({ userId })
       .lean()
       .sort(CurrentMode(sort))
       .then(restaurant => res.render('index', { restaurant }))
 
   } else {
 
-    const keywords = req.query.keywords
-    const keyword = req.query.keywords.trim().toLowerCase()
+    // const keywords = req.query.keywords
+    // const keyword = req.query.keywords.trim().toLowerCase()
 
-    return Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
-      .lean()
-      .sort(CurrentMode(sort))
-      .then(restaurant => res.render('index', { restaurant, keyword: keywords, sort }))
+    // return Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
+    //   .lean()
+    //   .sort(CurrentMode(sort))
+    //   .then(restaurant => res.render('index', { restaurant, keyword: keywords, sort }))
 
 
-      .catch(error => {
-        console.log('error')
-        res.render('errorPage', { status: 500, error: error.message })
-      })
+    //   .catch(error => {
+    //     console.log(error)
+    //     // res.render('errorPage', { status: 500, error: error.message })
+    //   })
   }
 
 })

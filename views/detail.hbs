@@ -5,21 +5,20 @@
     <div class="col-12 col-md-10 mx-auto">
 
       <div class="mb-4 d-flex justify-content-between align-items-center">
-        <a class="text-danger font-weight-normal" style="font-size: 19px;" href="/">
-          < 回到餐廳列表</a>
-            <div class="mr-5 ">
-              <a href=" ./{{restaurant._id}}/edit" class="text-secondary mx-3"
-                style=" font-size: 18px;text-decoration:underline;">Edit
-              </a>
+        <a class="text-danger font-weight-normal" style="font-size: 19px;" href="/">回到餐廳列表</a>
+        <div class="mr-5 ">
+          <a href="./{{restaurant._id}}/edit" class="text-secondary mx-3"
+            style=" font-size: 18px;text-decoration:underline;">Edit
+          </a>
 
-              <form action="/restaurants/{{restaurant._id}}?_method=delete" method="post" style="display: inline; "
-                class="mx-0">
-                <button type="submit" class="text-secondary"
-                  style=" border:none; background-color:transparent; font-size: 18px;text-decoration:underline;"
-                  id="delete-btn">Delete</button>
-              </form>
+          <form action="/restaurants/{{restaurant._id}}?_method=delete" method="post" style="display: inline; "
+            class="mx-0">
+            <button type="submit" class="text-secondary"
+              style=" border:none; background-color:transparent; font-size: 18px;text-decoration:underline;"
+              id="delete-btn">Delete</button>
+          </form>
 
-            </div>
+        </div>
       </div>
 
       <p class="mb-1">
@@ -53,7 +52,7 @@
         {{restaurant.description}}
       </p>
 
-      <img class="rounded mx-auto d-block mb-4 w-100" src="{{restaurant.image}}" alt={{restaurant.name}}
+      <img class="rounded mx-auto d-block mb-4 w-100" src="{{restaurant.img}}" alt="{{restaurant.name}}"
         style="max-width: 600px;">
     </div>
   </div>

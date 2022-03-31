@@ -32,7 +32,6 @@ router.post('/register', (req, res) => {
           name, email, password, confirmPassword
         })
       } else {
-        // check if password === confirmPassword
         if (password !== confirmPassword) {
           console.log('Error! password and confirm password do not match') // add flash msg here
           return res.render('register', { name, email, password, confirmPassword })

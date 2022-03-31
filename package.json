@@ -1,7 +1,7 @@
 {
   "name": "a7_restaurant-list-crud",
   "version": "1.0.0",
-  "description": "",
+  "description": "![image](https://github.com/AngelaC123/A7_Restaurant-List-CRUD/blob/main/public/%E6%88%AA%E5%9C%96%202022-03-08%2011.51.00.png)",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,11 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.2",
+    "connect-flash": "^0.1.1",
     "express": "^4.17.3",
     "express-handlebars": "^4.0.2",
     "express-session": "^1.17.2",
     "method-override": "^3.0.0",
-    "mongoose": "^5.9.7",
+    "mongoose": "^6.2.4",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0"
   }
