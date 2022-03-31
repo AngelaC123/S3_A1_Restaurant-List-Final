@@ -31,9 +31,12 @@
           我的餐廳清單
           {{/if}}
         </a>
-
-        <a class="btn btn-light mr-3 " style="background-color:#4c9cb9; color:white; width:120px; border-radius: 6px;"
-          href="/users/logout">Logout</a>
+        {{#if isAuthenticated}}
+        <a class="btn btn-light mr-3" style="background-color:#4c9cb9; color:white; width:120px; border-radius: 6px;"
+          href="/users/logout">
+          Logout
+        </a>
+        {{/if}}
       </div>
 
     </nav>
