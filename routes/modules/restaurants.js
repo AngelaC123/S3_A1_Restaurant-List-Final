@@ -13,10 +13,10 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const userId = req.user._id
-  const { name, category, img, location, phone, google_map, rating, description } = req.body
+  const { name, category, image, location, phone, google_map, rating, description } = req.body
 
   return Restaurant.create(
-    { userId, name, category, img, location, phone, google_map, rating, description }
+    { userId, name, category, image, location, phone, google_map, rating, description }
   )
     .then((restaurant) => {
       return restaurant

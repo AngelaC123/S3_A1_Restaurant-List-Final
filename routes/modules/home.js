@@ -17,19 +17,19 @@ router.get('/', (req, res) => {
 
   } else {
 
-    // const keywords = req.query.keywords
-    // const keyword = req.query.keywords.trim().toLowerCase()
+    const keywords = req.query.keywords
+    const keyword = req.query.keywords.trim().toLowerCase()
 
-    // return Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
-    //   .lean()
-    //   .sort(CurrentMode(sort))
-    //   .then(restaurant => res.render('index', { restaurant, keyword: keywords, sort }))
+    return Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
+      .lean()
+      .sort(CurrentMode(sort))
+      .then(restaurant => res.render('index', { restaurant, keyword: keywords, sort }))
 
 
-    //   .catch(error => {
-    //     console.log(error)
-    //     // res.render('errorPage', { status: 500, error: error.message })
-    //   })
+      .catch(error => {
+        console.log(error)
+        // res.render('errorPage', { status: 500, error: error.message })
+      })
   }
 
 })

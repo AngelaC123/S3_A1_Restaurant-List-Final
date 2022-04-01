@@ -1,15 +1,103 @@
+const bcrypt = require('bcryptjs')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const Restaurant = require('../restaurant')
-const restaurantList = require('../../restaurant.json')
+const User = require('../user')
+const restaurantList = require('../../restaurant.json').results
 const db = require('../../config/mongoose.js')
 
+const SEED_USER = [
+  {
+    email: 'user1@example.com',
+    password: '12345678',
+    restaurantId: [1, 2, 3]
+  },
+  {
+    email: 'user2@example.com',
+    password: '12345678',
+    restaurantId: [4, 5, 6]
+  }
+
+]
 
 db.once('open', () => {
-  Restaurant.create(restaurantList.results)
+
+  return Promise.all(Array.from(SEED_USER, (seedUser, i) => {
+
+    bcrypt
+      .genSalt(10)
+      .then(salt => {
+        return bcrypt.hash(seedUser.password, salt)
+      })
+      .then(hash => {
+        return User.create({ email: seedUser.email, password: hash })
+      })
+
+      .then(user => {
+        const userId = user._id
+        let restaurants = []
+
+        seedUser.restaurantId.forEach((id) => {
+          const restaurant = restaurantList.find((item) => item.id === id)
+          restaurants.push(restaurant)
+        })
+
+        restaurants.map((data) => data.userId = userId)
+        return Restaurant.create(restaurants)
+      })
+  }))
     .then(() => {
-      console.log('restaurantSeeder done')
-      db.close
+      console.log('done.')
+      db.close()
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .finally(() => process.exit())
+
+  // .then(() => {
+  //   console.log('restaurantSeeder done')
+  //   process.exit()
+  // })
+  // .catch(err => console.log(err))
+
+
+  // for (let i = 0; i < SEED_USER.length; i++) {
+
+
+  //   bcrypt
+  //     .genSalt(10)
+  //     .then(salt => {
+  //       return bcrypt.hash(SEED_USER[i].password, salt)
+  //     })
+  //     .then(hash => {
+  //       return User.create({ email: SEED_USER[i].email, password: hash })
+  //     })
+
+  //     .then(user => {
+
+  //       const userId = user._id
+  //       console.log(SEED_USER[i])
+
+  //       const restaurants = restaurantList.filter((item, j) => {
+  //         console.log(SEED_USER[i].restaurantId[j])
+  //         return item.id === SEED_USER[i].restaurantId[j]
+  //       })
+
+  //       return Promise.all(Array.from(restaurants, (value, index) => {
+  //         const { name, category, image, location, phone, google_map, rating, description } = restaurants[index]
+
+  //         console.log('restaurants[i]', restaurants[index])
+
+  //         return Restaurant.create({ name, category, image, location, phone, google_map, rating, description, userId })
+  //       }))
+  //     })
+
+  //     .then(() => {
+  //       return console.log('restaurantSeeder done')
+  //       process.exit()
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
 })
