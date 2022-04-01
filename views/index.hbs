@@ -79,7 +79,17 @@
 </div>
 
 {{else}}
+{{#if noData}}
+<div class="mt-5 text-center" style="height: 300px; ">
+  <p class=" text-secondary font-italic" style="font-size: 30px; padding-top: 40px; font-weight:300;">
+    Hello <strong class="text-primary"> {{user.name}}</strong>，
+    <br>
+    請新增餐廳到您的清單
+  </p>
+</div>
+{{else}}
 <div class="mt-5 text-center" style="height: 300px;">
   <p class=" text-danger font-italic" style="font-size: 30px; padding-top: 70px;">真抱歉！找不到"{{keyword}}"的相關資料！</p>
 </div>
+{{/if}}
 {{/if}}

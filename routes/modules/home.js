@@ -10,10 +10,14 @@ router.get('/', (req, res) => {
   let sort = req.query.sort
 
   if (!req.query.keywords) {
+    let noData = false
     Restaurant.find({ userId })
       .lean()
       .sort(CurrentMode(sort))
-      .then(restaurant => res.render('index', { restaurant }))
+      .then(restaurant => {
+        noData = restaurant.length === 0
+        return res.render('index', { restaurant, noData })
+      })
 
   } else {
 
@@ -33,8 +37,9 @@ router.get('/', (req, res) => {
     })
       .lean()
       .sort(CurrentMode(sort))
-      .then(restaurant => res.render('index', { restaurant, keyword: keywords, sort }))
-
+      .then(restaurant => {
+        res.render('index', { restaurant, keyword: keywords, sort })
+      })
 
       .catch(error => {
         console.log(error)
