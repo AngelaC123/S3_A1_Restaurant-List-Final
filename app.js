@@ -5,12 +5,17 @@ const methodOverRide = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
 
+if (process.env.Node_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 const usePassport = require('./config/passport')
 const routes = require('./routes')
 const Restaurant = require('./models/restaurant')
+const { config } = require('dotenv')
 require('./config/mongoose.js')
 
 
@@ -19,7 +24,7 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(session({
-  secret: 'RestaurantListSecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 }))

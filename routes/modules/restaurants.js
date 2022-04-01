@@ -14,7 +14,7 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, category, img, location, phone, google_map, rating, description } = req.body
-  console.log(name, category, img, location, phone, google_map, rating, description)
+
   return Restaurant.create(
     { userId, name, category, img, location, phone, google_map, rating, description }
   )
@@ -30,9 +30,9 @@ router.post('/', (req, res) => {
 
 // Detail page
 router.get('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
   const userId = req.user._id
-  return Restaurant.findOne({ _id: id, userId })
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then((restaurant) => res.render('detail', { restaurant }))
     .catch(error => {
