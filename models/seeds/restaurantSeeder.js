@@ -19,7 +19,6 @@ const SEED_USER = [
     password: '12345678',
     restaurantId: [4, 5, 6]
   }
-
 ]
 
 db.once('open', () => {
@@ -38,66 +37,16 @@ db.once('open', () => {
       .then(user => {
         const userId = user._id
         let restaurants = []
-
         seedUser.restaurantId.forEach((id) => {
           const restaurant = restaurantList.find((item) => item.id === id)
           restaurants.push(restaurant)
         })
-
         restaurants.map((data) => data.userId = userId)
         return Restaurant.create(restaurants)
       })
+      .then(() => {
+        console.log('restaurantSeeder done.')
+        process.exit() // 加入這行以後只會跑出5筆資料
+      })
   }))
-    .then(() => {
-      console.log('done.')
-      db.close()
-    })
-    .catch((err) => console.log(err))
-    .finally(() => process.exit())
-
-  // .then(() => {
-  //   console.log('restaurantSeeder done')
-  //   process.exit()
-  // })
-  // .catch(err => console.log(err))
-
-
-  // for (let i = 0; i < SEED_USER.length; i++) {
-
-
-  //   bcrypt
-  //     .genSalt(10)
-  //     .then(salt => {
-  //       return bcrypt.hash(SEED_USER[i].password, salt)
-  //     })
-  //     .then(hash => {
-  //       return User.create({ email: SEED_USER[i].email, password: hash })
-  //     })
-
-  //     .then(user => {
-
-  //       const userId = user._id
-  //       console.log(SEED_USER[i])
-
-  //       const restaurants = restaurantList.filter((item, j) => {
-  //         console.log(SEED_USER[i].restaurantId[j])
-  //         return item.id === SEED_USER[i].restaurantId[j]
-  //       })
-
-  //       return Promise.all(Array.from(restaurants, (value, index) => {
-  //         const { name, category, image, location, phone, google_map, rating, description } = restaurants[index]
-
-  //         console.log('restaurants[i]', restaurants[index])
-
-  //         return Restaurant.create({ name, category, image, location, phone, google_map, rating, description, userId })
-  //       }))
-  //     })
-
-  //     .then(() => {
-  //       return console.log('restaurantSeeder done')
-  //       process.exit()
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
 })
