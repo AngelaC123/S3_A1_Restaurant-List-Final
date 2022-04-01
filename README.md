@@ -1,10 +1,14 @@
 # 我的餐廳清單
-![image](https://github.com/AngelaC123/A7_Restaurant-List-CRUD/blob/main/public/%E6%88%AA%E5%9C%96%202022-03-08%2011.51.00.png)
+![image](https://github.com/AngelaC123/S3_A1_Restaurant-List-Final/blob/main/public/A1_restaurant-list-final.png)
 
 ## 簡介
-屬於自己的餐廳清單網頁。可以瀏覽所有清單上的餐廳，紀錄餐廳各類資訊、修改及刪除，也可以輸入關鍵字搜尋資料。
+餐廳清單網站，註冊、並登入個人帳號後，可瀏覽自己的餐廳清單，新增、修改及刪除清單中的餐廳資訊，也可以輸入關鍵字搜尋資料。也可以使用臉書認證登入。
 
 ## 功能
+* 註冊個人帳號
+* 登入後才能看到個人資訊
+* 第三方認證登入-臉書
+* 登出個人帳號
 * 瀏覽所有餐廳
 * 查看餐廳詳細資料
 * 連結到餐廳的google地圖
@@ -48,7 +52,18 @@ ctrl + C
 * Bootstrap 4.3.1
 * Font-awesome 5.8.1
 * MongoDB
-* mongoose 5.9.7
+* mongoose 6.2.4
+* bcryptjs 2.4.3
+* body-parser 1.19.2
+* connect-flash 0.1.1
+* dotenv 8.2.0
+* express-session 1.17.2
+* method-override 3.0.0
+* mongoose 6.2.4
+* passport 0.5.2
+* passport-facebook 3.0.0
+* passport-local 1.0.0
+
 
 
 

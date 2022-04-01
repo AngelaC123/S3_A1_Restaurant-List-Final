@@ -14,4 +14,3 @@ node_modules
 *.gz
 
 .env
-README.md
